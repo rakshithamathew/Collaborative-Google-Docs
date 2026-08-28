@@ -1,16 +1,10 @@
-// import axios from 'axios'
-
-// export const api = axios.create({
-//   baseURL: import.meta.env.VITE_API_URL,
-// })
-
 import axios from 'axios'
 
-export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+// Use the environment variable with a fallback
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
 
 export const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL,
-    // baseURL: API_BASE_URL,
+    baseURL: API_BASE_URL,  // Use the variable with fallback
 })
 
 const responseData = async <T>(request: Promise<{ data: T }>) => {
@@ -21,7 +15,7 @@ const responseData = async <T>(request: Promise<{ data: T }>) => {
 export const documentApi = {
     getAll: <T = unknown>() => responseData<T>(api.get('/api/documents')),
     getOne: <T = unknown>(id: string) => responseData<T>(api.get(`/api/documents/${id}`)),
-    create: <T = unknown>() => responseData<T>(api.post('/api/documents')),
+    create: <T = unknown>(data: unknown) => responseData<T>(api.post('/api/documents', data)), // ✅ Added data parameter
     importFile: <T = unknown>(file: File) => {
         const formData = new FormData()
         formData.append('file', file)
