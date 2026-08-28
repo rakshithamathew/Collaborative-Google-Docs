@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: collaborative-docs-backend
+    runtime: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: MONGODB_URI
+        sync: false
+      - key: PORT
+        value: 10000
+      - key: NODE_ENV
+        value: production

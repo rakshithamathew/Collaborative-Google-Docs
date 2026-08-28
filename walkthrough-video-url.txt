@@ -1,0 +1,1 @@
+PENDING: Record the walkthrough using WALKTHROUGH_SCRIPT.md, upload it as an unlisted Loom or YouTube video, and replace this line with the URL.
