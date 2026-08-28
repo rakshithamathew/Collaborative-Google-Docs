@@ -136,7 +136,7 @@ export function DocumentPage() {
   }
 
   const goBack = async () => {
-    if (await persist()) navigate('/documents')
+    if (await persist()) navigate('/')
   }
 
   const toolbarButton = (active: boolean) =>

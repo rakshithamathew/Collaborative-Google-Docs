@@ -5,9 +5,10 @@ import { DocumentPage } from './pages/DocumentPage'
 function App() {
   return (
     <Routes>
-      <Route path="/documents" element={<DocumentsPage />} />
+      <Route path="/" element={<DocumentsPage />} />
+      <Route path="/documents" element={<Navigate to="/" replace />} />
       <Route path="/documents/:id" element={<DocumentPage />} />
-      <Route path="*" element={<Navigate to="/documents" replace />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )
 }
