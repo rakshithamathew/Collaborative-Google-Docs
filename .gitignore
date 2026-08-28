@@ -1,7 +1,40 @@
+# Dependencies
 node_modules/
-dist/
-.env
-.env.local
-*.log
-.DS_Store
 
+# Build output
+dist/
+build/
+
+# Environment files and secrets (keep templates)
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+secrets.json
+
+# Logs and test output
+*.log
+logs/
+coverage/
+.nyc_output/
+
+# Runtime and temporary files
+tmp/
+temp/
+uploads/
+*.tmp
+*.swp
+*.pid
+
+# Editor and OS metadata
+.vscode/
+.idea/
+*.suo
+*.user
+.DS_Store
+Thumbs.db
