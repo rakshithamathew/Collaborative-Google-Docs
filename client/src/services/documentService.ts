@@ -1,4 +1,4 @@
-import { api } from './api'
+import { documentApi } from './api'
 
 export interface TiptapContent {
   type: 'doc'
@@ -31,36 +31,34 @@ export interface SharingInfo {
 
 export const documentService = {
   async list(): Promise<DocumentRecord[]> {
-    const { data } = await api.get<{ documents: DocumentRecord[] }>('/api/documents')
+    const data = await documentApi.getAll<{ documents: DocumentRecord[] }>()
     return data.documents
   },
   async create(): Promise<DocumentRecord> {
-    const { data } = await api.post<{ document: DocumentRecord }>('/api/documents')
+    const data = await documentApi.create<{ document: DocumentRecord }>()
     return data.document
   },
   async import(file: File): Promise<DocumentRecord> {
-    const formData = new FormData()
-    formData.append('file', file)
-    const { data } = await api.post<{ document: DocumentRecord }>('/api/documents/import', formData)
+    const data = await documentApi.importFile<{ document: DocumentRecord }>(file)
     return data.document
   },
   async get(id: string): Promise<DocumentRecord> {
-    const { data } = await api.get<{ document: DocumentRecord }>(`/api/documents/${id}`)
+    const data = await documentApi.getOne<{ document: DocumentRecord }>(id)
     return data.document
   },
   async update(id: string, updates: { title: string; content: TiptapContent }): Promise<DocumentRecord> {
-    const { data } = await api.patch<{ document: DocumentRecord }>(`/api/documents/${id}`, updates)
+    const data = await documentApi.update<{ document: DocumentRecord }>(id, updates)
     return data.document
   },
   async delete(id: string): Promise<void> {
-    await api.delete(`/api/documents/${id}`)
+    await documentApi.delete(id)
   },
   async share(id: string, email: string): Promise<SharingInfo> {
-    const { data } = await api.post<{ sharing: SharingInfo }>(`/api/documents/${id}/share`, { email })
+    const data = await documentApi.share<{ sharing: SharingInfo }>(id, email)
     return data.sharing
   },
   async removeSharedAccess(id: string, userId: string): Promise<SharingInfo> {
-    const { data } = await api.delete<{ sharing: SharingInfo }>(`/api/documents/${id}/share/${userId}`)
+    const data = await documentApi.removeSharedAccess<{ sharing: SharingInfo }>(id, userId)
     return data.sharing
   },
 }
