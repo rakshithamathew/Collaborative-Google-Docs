@@ -1,9 +1,11 @@
 import app from './app.js'
 import { connectDatabase, disconnectDatabase } from './config/database.js'
 import { env } from './config/env.js'
+import { ensureDemoUsers } from './services/ensureDemoUsers.js'
 
 const startServer = async (): Promise<void> => {
   await connectDatabase()
+  await ensureDemoUsers()
 
   const server = app.listen(env.port, () => {
     console.log(`Server listening on port ${env.port}`)
