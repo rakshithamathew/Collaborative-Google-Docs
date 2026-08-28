@@ -1,10 +1,11 @@
 import axios from 'axios'
 
-// Use the environment variable with a fallback
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+// Vite injects VITE_* variables at build time. Removing a trailing slash keeps
+// request URLs consistent when endpoints below begin with `/api`.
+const API_BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5000').replace(/\/$/, '')
 
 export const api = axios.create({
-  baseURL: API_BASE_URL,  // Use the variable with fallback
+  baseURL: API_BASE_URL,
 })
 
 const responseData = async <T>(request: Promise<{ data: T }>) => {
